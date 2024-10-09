@@ -1,10 +1,16 @@
 import pygame
 import player
-import enemies
+import obstacle
 
 pygame.init()
 
 screen = pygame.display.set_mode((800,600))
+
+clock = pygame.time.Clock()
+d=0
+
+asteroid = obstacle.Asteroid(0,0,1,1,20,20,100,screen)
+asteroid.normalize()
 
 running = True
 while running:
@@ -14,8 +20,10 @@ while running:
 
     screen.fill((0,0,0))
 
-    pygame.draw.rect(screen, (255,255,0), pygame.Rect(390, 290, 20, 20))
+    asteroid.update(d/1000)
+    asteroid.draw()
 
     pygame.display.flip()
+    d = clock.tick(60)
 
 pygame.quit()
