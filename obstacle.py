@@ -3,12 +3,13 @@ import random
 
 class Asteroid:
     def __init__(self, speed, screen) -> None:
-        size = random.randint(16,32)
+        size = random.randint(16,64)
         self.size = (size, size)
         self.speed = speed
         self.screen = screen
         self.pos = ()
         self.dir = ()
+        self.image = pygame.transform.rotate(pygame.transform.scale(pygame.image.load("asteroid.png"), self.size), random.randint(0, 360))
 
         spawn_pos = random.randint(0, 7)
         match spawn_pos:
@@ -48,8 +49,4 @@ class Asteroid:
         self.rect.top += self.dir[1] * self.speed * delta
     
     def draw(self) -> None:
-        pygame.draw.rect(self.screen, (0,255,0), self.rect)
-
-class Enemy:
-    def __init__(self) -> None:
-        pass
+        self.screen.blit(self.image, self.rect)
