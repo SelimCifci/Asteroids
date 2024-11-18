@@ -29,3 +29,11 @@ class Player:
     def draw(self):
         image = pygame.transform.rotate(self.image, self.rot-90)
         self.screen.blit(image, image.get_rect(center=self.rect.center))
+        ##########################################################################
+        # FOR DEBUGGING PURPOSES
+        pygame.draw.rect(self.screen, "green", self.rect, 1)
+        ##########################################################################
+
+#class Bullet:
+#    def __init__(self) -> None:
+        

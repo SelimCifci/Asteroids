@@ -2,6 +2,7 @@ import pygame
 import obstacle
 import player
 
+
 pygame.init()
 
 screen = pygame.display.set_mode((600,600))
@@ -15,7 +16,7 @@ frames_per_spawn = 60
 obstacle_speed = 100
 
 asteroids = []
-player1 = player.Player((24,32), 3.5, 5, screen)
+player1 = player.Player((24,24), 3.5, 5, screen)
 
 running = True
 while running:
@@ -40,7 +41,6 @@ while running:
     for i in asteroids:
         i.update(d/1000)
         i.draw()
-
         if pygame.Rect.colliderect(i.rect, player1.rect):
             running = False
 

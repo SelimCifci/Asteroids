@@ -49,4 +49,8 @@ class Asteroid:
         self.rect.top += self.dir[1] * self.speed * delta
     
     def draw(self) -> None:
-        self.screen.blit(self.image, self.rect)
+        self.screen.blit(self.image, self.image.get_rect(center=self.rect.center))
+        ##########################################################################
+        # FOR DEBUGGING PURPOSES
+        pygame.draw.rect(self.screen, "red", self.rect, 1)
+        ##########################################################################
