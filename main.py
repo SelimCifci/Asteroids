@@ -41,6 +41,12 @@ while running:
     for i in asteroids:
         i.update(d/1000)
         i.draw()
+
+        for j in player1.bullets:
+            if pygame.Rect.colliderect(j.rect, i.rect):
+                asteroids.remove(i)
+                break
+
         if pygame.Rect.colliderect(i.rect, player1.rect):
             running = False
 
@@ -51,6 +57,7 @@ while running:
     if key[pygame.K_d]: inputs[1] = -1
     elif key[pygame.K_a]: inputs[1] = 1
     else: inputs[1] = 0
+    if key[pygame.K_SPACE]: player1.shoot()
 
     player1.transform(inputs)
     player1.draw()
