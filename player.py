@@ -55,7 +55,7 @@ class Player:
         # Checks if the cooldown passed
         if time >= self.shot_at+self.shoot_cooldown:
             # If so, instantiates a new bullet
-            self.bullets.append(Bullet(self.screen, 8, 8, (self.rect.center[0]-3, self.rect.center[1]-3), self.dir))
+            self.bullets.append(Bullet(self.screen, 4, 8, (self.rect.center[0]-3, self.rect.center[1]-3), self.dir))
             # Starts the cooldown
             self.shot_at = time
 

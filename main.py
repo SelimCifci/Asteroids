@@ -2,6 +2,7 @@ import pygame
 import obstacle
 import player
 import math
+import random
 
 # Initialize the pygame modules
 pygame.init()
@@ -25,10 +26,29 @@ frames_per_spawn = 60
 # Speed of the asteroids
 obstacle_speed = 1
 
+score = 0
+
 # List that stores all asteroids
 asteroids = []
 # Instantiate the player
 player1 = player.Player((24,32), 3.5, 5, screen, 30)
+
+def split(parent):
+    global score
+
+    # Assigns the needed variables for splitting
+    pos = parent.pos
+    dir = parent.dir
+    size = parent.size/2
+
+    # Creates 2 new asteroids at the parent's position and direction (+- 45°) and half the parent's size
+    asteroids.append(obstacle.Asteroid(obstacle_speed, screen, False, pos, dir + random.randint(-45, 45), size))
+    asteroids.append(obstacle.Asteroid(obstacle_speed, screen, False, pos, dir + random.randint(-45, 45), size))
+
+    # Removes the parent
+    asteroids.remove(parent)
+    # Adds score for the according size times 1.5625 to round up (64 -> 100, 32 -> 50, 16 -> 25)
+    score += size * 1.5625
 
 running = True
 while running:
@@ -50,7 +70,7 @@ while running:
 
     # If the frames per spawn passed, spawns a new asteroid
     if frames % frames_per_spawn == 0:
-        asteroids.append(obstacle.Asteroid(obstacle_speed, screen))
+        asteroids.append(obstacle.Asteroid(obstacle_speed, screen, True))
         # If the amount of asteroids exceeds a limit of 64 removes the first one to counter stuttering
         if len(asteroids) > 64:
             asteroids.pop(0) 
@@ -63,9 +83,12 @@ while running:
         for j in player1.bullets:
             # Checks if any bullet and any asteroid collide with eachother trough pygame.mask.overlap()
             if j.mask.overlap(i.mask, (i.pos[0]-j.pos[0], i.pos[1]-j.pos[1])):
-                # Delete the asteroid and the bullet
-                asteroids.remove(i)
+                # Deletes the bullet
                 player1.bullets.remove(j)
+
+                # Checks if the asteroid is the smallest size, if so removes the asteroid, else runs the split function 
+                if i.size == 16: asteroids.remove(i)
+                else: split(i)
 
         # Checks if any asteroid collides with the player
         if player1.mask.overlap(i.mask, (i.pos[0]-player1.pos[0], i.pos[1]-player1.pos[1])):
@@ -89,7 +112,7 @@ while running:
     player1.draw()
 
     # Displays the score on the top left corner (1 sec = 6 points)
-    screen.blit(font.render("Score: "+str(math.floor(frames/10)), False, (255,255,255)), (8,4))
+    screen.blit(font.render("Score: "+str(int(score)), False, (255,255,255)), (8,4))
 
     # Updates the whole window
     pygame.display.flip()
