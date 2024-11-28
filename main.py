@@ -54,7 +54,7 @@ while running:
         # If the amount of asteroids exceeds a limit of 64 removes the first one to counter stuttering
         if len(asteroids) > 64:
             asteroids.pop(0) 
-
+            
     for i in asteroids:
         # Updates and draws every asteroid
         i.update()
@@ -71,9 +71,6 @@ while running:
         if player1.mask.overlap(i.mask, (i.pos[0]-player1.pos[0], i.pos[1]-player1.pos[1])):
             # Closes the program
             running = False
-
-    # Checks if the cooldown for the player being able to shoot again ended
-    player1.cooldown(frames)
 
     # pygame.key.get_pressed() returns a list containing all keys as bools (key pressed -> true, key released -> false)
     key = pygame.key.get_pressed()
