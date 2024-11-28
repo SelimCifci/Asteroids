@@ -70,10 +70,6 @@ class Player:
         self.mask = pygame.mask.from_surface(image.convert_alpha())
         # Draws the player
         self.screen.blit(image, image.get_rect(center=self.rect.center))
-        ######################################
-        # FOR DEBUGGING PURPOSES
-        self.screen.blit(self.mask.to_surface(), self.rect)
-        ######################################
 
 class Bullet:
     def __init__(self, screen, size, speed, pos, dir) -> None:

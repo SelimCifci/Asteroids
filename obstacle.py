@@ -62,7 +62,3 @@ class Asteroid:
         # Draws the asteroid
         self.screen.blit(self.image, self.image.get_rect(center=self.rect.center))
         self.mask = pygame.mask.from_surface(self.image)
-        ######################################
-        # FOR DEBUGGING PURPOSES
-        self.screen.blit(self.mask.to_surface(), self.rect)
-        ######################################
