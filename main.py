@@ -47,8 +47,6 @@ def split(parent):
 
     # Removes the parent
     asteroids.remove(parent)
-    # Adds score for the according size times 1.5625 to round up (64 -> 100, 32 -> 50, 16 -> 25)
-    score += size * 1.5625
 
 running = True
 while running:
@@ -87,8 +85,12 @@ while running:
                 player1.bullets.remove(j)
 
                 # Checks if the asteroid is the smallest size, if so removes the asteroid, else runs the split function 
-                if i.size == 16: asteroids.remove(i)
+                if i.size == 16:
+                    asteroids.remove(i)
                 else: split(i)
+
+                # Adds score for the according size times 1.5625 to round up (64 -> 100, 32 -> 50, 16 -> 25)
+                score += i.size * 1.5625
 
         # Checks if any asteroid collides with the player
         if player1.mask.overlap(i.mask, (i.pos[0]-player1.pos[0], i.pos[1]-player1.pos[1])):
